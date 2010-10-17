@@ -6,9 +6,10 @@
 
 
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(MainObject *mOb, QWidget *parent)
     : QMainWindow(parent)
 {
+    mainObject = mOb;
 
     setWindowTitle("SMS Desktop");
     setFixedWidth(500);

@@ -7,7 +7,12 @@ QT += network \
 TARGET = daffodil-sms
 TEMPLATE = app
 SOURCES += main.cpp \
-    mainwindow.cpp \
-    addresses/addresseswidget.cpp
-HEADERS += mainwindow.h \
-    addresses/addresseswidget.h
+    mainobject.cpp \
+    mainwindows/mainwindow.cpp \
+    addresses/addresseswidget.cpp \
+    xwidgets/xstatusbar.cpp
+HEADERS += mainwindows/mainwindow.h \
+    mainobject.h \
+    addresses/addresseswidget.h \
+    xwidgets/xstatusbar.h
+RESOURCES += icons/icons.qrc

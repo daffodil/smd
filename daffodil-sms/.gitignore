@@ -1,6 +1,7 @@
 *.o
 daffodil-sms.pro.user
 moc_*.cpp
+qrc_*.cpp
 Makefile
 daffodil-sms
 

@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="ok">accept.png</file>
+        <file alias="favicon">shape_move_front.png</file>
+        <file alias="add">add.png</file>
+        <file alias="refresh">arrow_refresh.png</file>
+        <file>book_previous.png</file>
+        <file alias="black">bullet_black.png</file>
+        <file>bullet_delete.png</file>
+        <file alias="green">bullet_green.png</file>
+        <file alias="orange">bullet_orange.png</file>
+        <file alias="pink">bullet_pink.png</file>
+        <file alias="purple">bullet_purple.png</file>
+        <file alias="red">bullet_red.png</file>
+        <file alias="cancel">cancel.png</file>
+    </qresource>
+</RCC>
