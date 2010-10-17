@@ -12,7 +12,7 @@ MainWindow::MainWindow(MainObject *mOb, QWidget *parent)
     mainObject = mOb;
 
     setWindowTitle("SMS Desktop");
-    setFixedWidth(500);
+    setFixedWidth(800);
     setFixedHeight(500);
 
     QWidget *centralWidget = new QWidget();
@@ -31,7 +31,7 @@ MainWindow::MainWindow(MainObject *mOb, QWidget *parent)
 
     mainLayout->addWidget(tabWidget);
 
-    addressesWidget = new AddressesWidget();
+    addressesWidget = new AddressesWidget(mainObject);
     tabWidget->addTab(addressesWidget, "Addresses");
 
 

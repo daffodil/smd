@@ -7,9 +7,10 @@
 
 #include "addresseswidget.h"
 
-AddressesWidget::AddressesWidget(QWidget *parent) :
+AddressesWidget::AddressesWidget(MainObject *mOb, QWidget *parent) :
     QWidget(parent)
 {
+    mainObject = mOb;
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);

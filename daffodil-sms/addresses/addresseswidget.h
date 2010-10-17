@@ -7,6 +7,7 @@
 #include <QtGui/QTreeView>
 #include <QtGui/QProgressBar>
 
+#include "mainobject.h"
 #include "xwidgets/xstatusbar.h"
 
 class AddressesWidget : public QWidget
@@ -23,7 +24,9 @@ public:
     };
 
 
-    explicit AddressesWidget(QWidget *parent = 0);
+    explicit AddressesWidget(MainObject *mOb, QWidget *parent = 0);
+
+    MainObject *mainObject;
 
     QStandardItemModel *model;
     QSortFilterProxyModel *proxyModel;
