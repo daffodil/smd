@@ -1,0 +1,6 @@
+*.o
+daffodil-sms.pro.user
+moc_*.cpp
+Makefile
+daffodil-sms
+
