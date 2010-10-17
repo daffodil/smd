@@ -2,9 +2,7 @@
 #define ADDRESSESWIDGET_H
 
 #include <QtGui/QWidget>
-#include <QtGui/QStandardItemModel>
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QTreeView>
+#include <QtGui/QTreeWidget>
 #include <QtGui/QProgressBar>
 
 #include "mainobject.h"
@@ -28,9 +26,11 @@ public:
 
     MainObject *mainObject;
 
-    QStandardItemModel *model;
-    QSortFilterProxyModel *proxyModel;
-    QTreeView *treeView;
+    QTreeWidget *treeWidget;
+
+    QAction *actionAdd;
+    QAction *actionEdit;
+    QAction *actionDelete;
 
     XStatusBar *statusBar;
     QProgressBar *progressBar;
@@ -39,6 +39,11 @@ signals:
 
 public slots:
 
+    void on_tree_selection_changed();
+
+    void on_action_add();
+    void on_action_edit();
+    void on_action_delete();
 };
 
 #endif // ADDRESSESWIDGET_H

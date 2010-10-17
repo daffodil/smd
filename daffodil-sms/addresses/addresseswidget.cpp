@@ -3,7 +3,9 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QToolBar>
-
+#include <QtGui/QIcon>
+#include <QtGui/QAction>
+#include <QtGui/QTreeWidgetItem>
 
 #include "addresseswidget.h"
 
@@ -14,6 +16,8 @@ AddressesWidget::AddressesWidget(MainObject *mOb, QWidget *parent) :
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
+    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setSpacing(0);
 
 
 
@@ -22,58 +26,62 @@ AddressesWidget::AddressesWidget(MainObject *mOb, QWidget *parent) :
     QToolBar *toolBar = new QToolBar();
     mainLayout->addWidget(toolBar);
     toolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    toolBar->layout()->setSpacing(10);
+    toolBar->layout()->setSpacing(2);
 
 
+    //** Add Contact
+    actionAdd = new QAction(toolBar);
+    toolBar->addAction(actionAdd);
+    actionAdd->setIcon(QIcon(":/icons/contact_add"));
+    actionAdd->setText("Add");
+    connect(actionAdd, SIGNAL(triggered()), this, SLOT(on_action_add()));
 
+    //** Edit Contact
+    actionEdit = new QAction(toolBar);
+    toolBar->addAction(actionEdit);
+    actionEdit->setIcon(QIcon(":/icons/contact_edit"));
+    actionEdit->setText("Edit");
+    actionEdit->setDisabled(true);
 
-    //******************************************************
-    //** Models
-    model = new QStandardItemModel(this);
-    model->setColumnCount(2);
-    QStringList headerLabelsList;
-    headerLabelsList << "Name" << "Salutation"  << "Company" <<  "Mobile" << "#";
-    model->setHorizontalHeaderLabels(headerLabelsList);
+    //** Delete Contact
+    actionDelete = new QAction(toolBar);
+    toolBar->addAction(actionDelete);
+    actionDelete->setIcon(QIcon(":/icons/contact_delete"));
+    actionDelete->setText("Delete");
+    actionDelete->setDisabled(true);
 
-    proxyModel = new QSortFilterProxyModel(this);
-    proxyModel->setSourceModel(model);
-    proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-    proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    proxyModel->setFilterKeyColumn( C_NAME );
 
     //******************************************************
     //**  Tree
-    treeView = new QTreeView(this);
-    mainLayout->addWidget(treeView);
-    treeView->setModel(proxyModel);
+    treeWidget = new QTreeWidget(this);
+    mainLayout->addWidget(treeWidget);   
 
-    treeView->setUniformRowHeights(true);
-    treeView->setAlternatingRowColors(true);
-    treeView->setRootIsDecorated(false);
-    treeView->setSortingEnabled(true);
-    treeView->sortByColumn(C_NAME, Qt::AscendingOrder);
-    treeView->setSelectionMode(QAbstractItemView::SingleSelection);
-    treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    treeWidget->setUniformRowHeights(true);
+    treeWidget->setAlternatingRowColors(true);
+    treeWidget->setRootIsDecorated(false);
+    treeWidget->setSortingEnabled(true);
+    treeWidget->sortByColumn(C_NAME, Qt::AscendingOrder);
+    treeWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+   // treeWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    treeWidget->setEditTriggers(QAbstractItemView::AllEditTriggers);
 
     //** Deaders and columns
-    treeView->header()->setStretchLastSection(true);
-    //treeView->setColumnHidden(C_ELEVATION, true);
-    //treeView->setColumnHidden(C_TOWER, true);
-    treeView->setColumnWidth(C_NAME, 100);
-    treeView->setColumnWidth(C_SALUTATION, 100);
-    treeView->setColumnWidth(C_COMPANY, 100);
-    treeView->setColumnWidth(C_MOBILE, 100);
+    treeWidget->header()->setStretchLastSection(true);
+    QTreeWidgetItem *headerItem = treeWidget->headerItem();
+    headerItem->setText(C_NAME, "Contact");
+    headerItem->setText(C_SALUTATION, "Salutation");
+    headerItem->setText(C_COMPANY, "Company");
+    headerItem->setText(C_MOBILE, "Mobile");
 
-    connect( treeView->selectionModel(),
-             SIGNAL( selectionChanged (const QItemSelection&, const QItemSelection&) ),
-             SLOT( on_aiport_clicked(const QItemSelection&, const QItemSelection&) )
+    treeWidget->setColumnWidth(C_NAME, 100);
+    treeWidget->setColumnWidth(C_SALUTATION, 100);
+    treeWidget->setColumnWidth(C_COMPANY, 100);
+    treeWidget->setColumnWidth(C_MOBILE, 100);
+
+    connect( treeWidget,SIGNAL( itemSelectionChanged() ),
+             this,      SLOT( on_tree_selection_changed() )
     );
 
-    //connect(treeView,
-    //        SIGNAL(clicked(QModelIndex)),
-    //        this, SLOT(on_tree_clicked(QModelIndex))
-    //);
 
     //************************************************************************
     //*** Status Bar
@@ -85,3 +93,28 @@ AddressesWidget::AddressesWidget(MainObject *mOb, QWidget *parent) :
     statusBar->addPermanentWidget(progressBar);
 
 }
+
+void AddressesWidget::on_tree_selection_changed(){
+    bool has_sel = treeWidget->selectionModel()->hasSelection();
+    actionEdit->setDisabled(!has_sel);
+    actionDelete->setDisabled(!has_sel);
+}
+
+
+
+void AddressesWidget::on_action_add(){
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    item->setText(C_NAME, "name");
+    item->setText(C_SALUTATION, "s");
+    item->setText(C_COMPANY, "co");
+    item->setText(C_MOBILE, "mo");
+    treeWidget->insertTopLevelItem(0, item);
+    treeWidget->setCurrentItem(item);
+    treeWidget->editItem(item, C_NAME);
+}
+void AddressesWidget::on_action_edit(){
+
+}
+void AddressesWidget::on_action_delete(){
+}
+

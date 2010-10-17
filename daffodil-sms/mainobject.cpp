@@ -37,7 +37,7 @@ MainObject::MainObject(QObject *parent) :
     //db.setPassword("mash");
     //db.setDatabaseName("ffs-desktop");
     qDebug() << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-    db.setDatabaseName(QDesktopServices::storageLocation(QDesktopServices::DataLocation).append("ffs-desktop.sqlite"));
+    db.setDatabaseName(QDesktopServices::storageLocation(QDesktopServices::DataLocation).append("daffodil-sms.sqlite"));
     if( !db.open() ){
         qDebug() << db.lastError();
         return;
@@ -114,7 +114,7 @@ bool MainObject::db_sanity_check(){
         QStringList queries;
         queries.append("CREATE TABLE IF NOT EXISTS db_version( `version` varchar(20) );");
         queries.append("INSERT INTO db_version ( `version` )VALUES( 0.1 );");
-        queries.append("CREATE TABLE IF NOT EXISTS airport_favs( airport varchar(20) );");
+        queries.append("CREATE TABLE IF NOT EXISTS addresses( name varchar(30), salutation varchar(30), company varchar(30), mobile varchar(30) );");
         for(int i = 0; i < queries.size(); ++i){
             qDebug() << queries.at(i);
             QSqlQuery q;

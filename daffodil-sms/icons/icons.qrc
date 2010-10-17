@@ -13,5 +13,10 @@
         <file alias="purple">bullet_purple.png</file>
         <file alias="red">bullet_red.png</file>
         <file alias="cancel">cancel.png</file>
+        <file alias="contact">user.png</file>
+        <file alias="contact_add">user_add.png</file>
+        <file alias="contact_delete">user_delete.png</file>
+        <file alias="contact_edit">user_edit.png</file>
+        <file>user_gray.png</file>
     </qresource>
 </RCC>
