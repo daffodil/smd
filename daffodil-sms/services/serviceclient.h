@@ -1,7 +1,8 @@
 #ifndef SERVICECLIENT_H
 #define SERVICECLIENT_H
 
-#include <QObject>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 class ServiceClient : public QObject
 {
@@ -15,8 +16,7 @@ public:
     QString password();
     void setPassword(QString password);
 
-    //* I think this needs to be virtual
-    void credits();
+    virtual QString credits();
 
 protected:
     QString _user;

@@ -14,6 +14,7 @@ MainWindow::MainWindow(MainObject *mOb, QWidget *parent)
     setWindowTitle("SMS Desktop");
     setFixedWidth(800);
     setFixedHeight(500);
+    move(30,30);
 
     QWidget *centralWidget = new QWidget();
     setCentralWidget(centralWidget);

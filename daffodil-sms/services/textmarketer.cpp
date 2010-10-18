@@ -5,6 +5,6 @@ TextMarketer::TextMarketer(QObject *parent) :
 {
 }
 
-//void TextMarketer::credits(){
-
-//}
+QString TextMarketer::credits(){
+    return QString("credits()");
+}
