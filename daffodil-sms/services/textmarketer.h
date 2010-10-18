@@ -9,6 +9,8 @@ Q_OBJECT
 public:
     explicit TextMarketer(QObject *parent = 0);
 
+    //void credits() << overrides base class
+
 signals:
 
 public slots:

@@ -15,6 +15,7 @@ public:
     QString password();
     void setPassword(QString password);
 
+    //* I think this needs to be virtual
     void credits();
 
 protected:
