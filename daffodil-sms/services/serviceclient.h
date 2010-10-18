@@ -17,7 +17,7 @@ public:
 
     void credits();
 
-private:
+protected:
     QString _user;
     QString _password;
 
