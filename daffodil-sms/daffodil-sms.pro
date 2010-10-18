@@ -12,11 +12,17 @@ SOURCES += main.cpp \
     addresses/addresseswidget.cpp \
     xwidgets/xstatusbar.cpp \
     services/serviceclient.cpp \
-    services/textmarketer.cpp
+    services/textmarketer.cpp \
+    services/x24com.cpp \
+    settings/settingswidget.cpp \
+    settings/settingswidget.cpp
 HEADERS += mainwindows/mainwindow.h \
     mainobject.h \
     addresses/addresseswidget.h \
     xwidgets/xstatusbar.h \
     services/serviceclient.h \
-    services/textmarketer.h
+    services/textmarketer.h \
+    services/x24com.h \
+    settings/settingswidget.h \
+    settings/settingswidget.h
 RESOURCES += icons/icons.qrc

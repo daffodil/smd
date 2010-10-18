@@ -9,6 +9,8 @@
 
 #include "addresseswidget.h"
 #include "services/textmarketer.h"
+#include "services/x24com.h"
+
 
 AddressesWidget::AddressesWidget(MainObject *mOb, QWidget *parent) :
     QWidget(parent)
@@ -53,12 +55,13 @@ AddressesWidget::AddressesWidget(MainObject *mOb, QWidget *parent) :
 
     toolBar->addSeparator();
 
-    //** TEST Contact
+    //** TEST TEST
     QAction *actionTest = new QAction(toolBar);
     toolBar->addAction(actionTest);
     actionTest->setIcon(QIcon(":/icons/contact_delete"));
     actionTest->setText("Delete");
-    connect(actionTest, SIGNAL(triggered()), this, SLOT(on_test_123()));
+    actionTest->setCheckable(true);
+    connect(actionTest, SIGNAL(triggered(bool)), this, SLOT(on_test_123(bool)));
 
     //******************************************************
     //**  Tree
@@ -128,8 +131,13 @@ void AddressesWidget::on_action_delete(){
 }
 
 
-void AddressesWidget::on_test_123(){
-    qDebug("test123");
-    TextMarketer *m = new TextMarketer();
-    qDebug() << m->credits();
+void AddressesWidget::on_test_123(bool state){
+    qDebug() << "\ntest123" << state;
+    ServiceClient *serviceClient;
+    if(state){
+        serviceClient = new TextMarketer();
+    }else{
+        serviceClient = new X24Com();
+    }
+    qDebug() << serviceClient->credits();
 }

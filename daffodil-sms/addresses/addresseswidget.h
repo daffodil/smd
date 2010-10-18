@@ -47,7 +47,7 @@ public slots:
     void on_action_edit();
     void on_action_delete();
 
-    void on_test_123();
+    void on_test_123(bool state);
 };
 
 #endif // ADDRESSESWIDGET_H
