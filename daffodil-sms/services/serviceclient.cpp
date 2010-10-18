@@ -20,3 +20,6 @@ void ServiceClient::setPassword(QString pass){
 }
 
 
+QString ServiceClient::credits(){
+    return QString("base_credits()");
+}

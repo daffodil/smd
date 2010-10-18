@@ -11,6 +11,8 @@ public:
 
     //QString credits(); // << overrides base class
 
+    QString credits();
+
 signals:
 
 public slots:

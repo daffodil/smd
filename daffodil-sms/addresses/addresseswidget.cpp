@@ -8,6 +8,7 @@
 #include <QtGui/QTreeWidgetItem>
 
 #include "addresseswidget.h"
+#include "services/textmarketer.h"
 
 AddressesWidget::AddressesWidget(MainObject *mOb, QWidget *parent) :
     QWidget(parent)
@@ -50,6 +51,14 @@ AddressesWidget::AddressesWidget(MainObject *mOb, QWidget *parent) :
     actionDelete->setText("Delete");
     actionDelete->setDisabled(true);
 
+    toolBar->addSeparator();
+
+    //** TEST Contact
+    QAction *actionTest = new QAction(toolBar);
+    toolBar->addAction(actionTest);
+    actionTest->setIcon(QIcon(":/icons/contact_delete"));
+    actionTest->setText("Delete");
+    connect(actionTest, SIGNAL(triggered()), this, SLOT(on_test_123()));
 
     //******************************************************
     //**  Tree
@@ -118,3 +127,9 @@ void AddressesWidget::on_action_edit(){
 void AddressesWidget::on_action_delete(){
 }
 
+
+void AddressesWidget::on_test_123(){
+    qDebug("test123");
+    TextMarketer *m = new TextMarketer();
+    qDebug() << m->credits();
+}

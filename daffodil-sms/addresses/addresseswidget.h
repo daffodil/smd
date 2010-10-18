@@ -1,6 +1,8 @@
 #ifndef ADDRESSESWIDGET_H
 #define ADDRESSESWIDGET_H
 
+#include <QtCore/QtDebug>
+
 #include <QtGui/QWidget>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QProgressBar>
@@ -44,6 +46,8 @@ public slots:
     void on_action_add();
     void on_action_edit();
     void on_action_delete();
+
+    void on_test_123();
 };
 
 #endif // ADDRESSESWIDGET_H
