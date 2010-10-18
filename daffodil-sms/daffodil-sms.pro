@@ -10,9 +10,13 @@ SOURCES += main.cpp \
     mainobject.cpp \
     mainwindows/mainwindow.cpp \
     addresses/addresseswidget.cpp \
-    xwidgets/xstatusbar.cpp
+    xwidgets/xstatusbar.cpp \
+    services/serviceclient.cpp \
+    services/textmarketer.cpp
 HEADERS += mainwindows/mainwindow.h \
     mainobject.h \
     addresses/addresseswidget.h \
-    xwidgets/xstatusbar.h
+    xwidgets/xstatusbar.h \
+    services/serviceclient.h \
+    services/textmarketer.h
 RESOURCES += icons/icons.qrc
