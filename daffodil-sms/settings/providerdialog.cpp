@@ -42,7 +42,8 @@ ProviderDialog::ProviderDialog(MainObject *mOb, QDialog *parent) :
     mainLayout->setSpacing(10);
 
 
-    QString styleGrp = QString("QGroupBox{  border:2px solid gray;border-radius:5px;  margin-top: 1ex;} QGroupBox::title{subcontrol-origin: margin;subcontrol-position:top center;padding:0 3px;}");
+    //QString styleGrp = QString("QGroupBox{  border:2px solid gray;border-radius:5px;  margin-top: 1ex;} QGroupBox::title{subcontrol-origin: margin;subcontrol-position:top left;padding:0px 3px;}");
+    QString styleGrp = QString("QGroupBox{  border:1px solid gray; margin-top: 2ex;} QGroupBox::title{subcontrol-origin: margin;subcontrol-position:top left;padding:0px 3px;}");
 
     //***************************************************
     //** Browse Button Group
@@ -80,11 +81,8 @@ ProviderDialog::ProviderDialog(MainObject *mOb, QDialog *parent) :
     buttonGroupBrowse->addButton(buttLogin);
 
 
+    mainLayout->addSpacing(20);
 
-
-   // chkboxActive = new QCheckBox();
-   // mainLayout->addWidget(chkboxActive);
-    //chkboxActive->setText("Activate this account");
     //*************************************************************
     //** Credentials
     grpCredentials = new QGroupBox();
@@ -100,13 +98,44 @@ ProviderDialog::ProviderDialog(MainObject *mOb, QDialog *parent) :
     credLayout->addWidget( lblUsername );
     txtUsername = new QLineEdit();
     credLayout->addWidget(txtUsername);
-
+    credLayout->addSpacing(10);
 
     QLabel *lblPassword = new QLabel("Password");
     credLayout->addWidget( lblPassword );
     txtPass = new QLineEdit();
     credLayout->addWidget(txtPass);
+    credLayout->addSpacing(10);
 
+    QLabel *lblEmail = new QLabel("Email");
+    credLayout->addWidget( lblEmail );
+    txtEmail = new QLineEdit();
+    credLayout->addWidget(txtEmail);
+
+
+    mainLayout->addSpacing(20);
+
+
+    //**************************************************
+    //** Buttons
+    QHBoxLayout *buttonBox = new QHBoxLayout();
+    mainLayout->addLayout(buttonBox);
+    buttonBox->addStretch(10);
+
+    QPushButton *cancelButton = new QPushButton();
+    cancelButton->setText("Cancel");
+    cancelButton->setIcon(QIcon(":/icons/black"));
+    buttonBox->addWidget(cancelButton);
+    connect(cancelButton, SIGNAL(clicked()), this, SLOT(on_cancel()));
+
+    QPushButton *saveButton = new QPushButton();
+    saveButton->setText("Save");
+    saveButton->setIcon(QIcon(":/icons/ok"));
+    buttonBox->addWidget(saveButton);
+    connect(saveButton, SIGNAL(clicked()), this, SLOT(on_save()));
+
+    statusBar = new XStatusBar();
+    mainOuterLayout->addWidget(statusBar);
+    statusBar->showMessage("Loaded", 2000);
 
 
 }
@@ -144,6 +173,23 @@ void ProviderDialog::db_load()
 
 void ProviderDialog::on_browse_button(QAbstractButton *button)
 {
-     qDebug() << "OOps=" << button->toolTip();
     QDesktopServices::openUrl(QUrl(button->toolTip()));
+}
+
+
+void ProviderDialog::on_cancel()
+{
+    reject();
+}
+
+
+void ProviderDialog::on_save()
+{
+    txtUsername->setText(txtUsername->text().trimmed());
+    if(txtUsername->text().length() == 0){
+        statusBar->showError("Need an username", 4000);
+        txtUsername->setFocus();
+        return;
+    }
+    accept();
 }

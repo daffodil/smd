@@ -8,9 +8,10 @@
 #include <QtGui/QGroupBox>
 #include <QtGui/QLineEdit>
 
+
 #include <QtCore/QString>
 
-
+#include "xwidgets/xstatusbar.h"
 #include "mainobject.h"
 
 class ProviderDialog : public QDialog
@@ -37,6 +38,8 @@ public:
     QLineEdit *txtPass;
     QLineEdit *txtEmail;
 
+
+    XStatusBar *statusBar;
 private:
     QString _provider;
 
@@ -45,6 +48,9 @@ signals:
 public slots:
     void db_load();
     void on_browse_button(QAbstractButton*);
+
+    void on_cancel();
+    void on_save();
 };
 
 #endif // PROVIDERDIALOG_H
