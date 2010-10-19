@@ -9,6 +9,8 @@
 #include <QtGui/QItemSelectionModel>
 #include <QtGui/QToolBar>
 
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
 
 SettingsWidget::SettingsWidget(QWidget *parent) :
     QWidget(parent)
@@ -76,15 +78,7 @@ SettingsWidget::SettingsWidget(QWidget *parent) :
     connect(treeWidget, SIGNAL(itemSelectionChanged()), this, SLOT(on_tree_selection_changed()));
     connect(treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(on_tree_double_clicked(QTreeWidgetItem*,int)));
 
-    //** Temp Providers
-    QStringList providers;
-    providers << "24x.com" << "TeleMarketer.co.uk" << "Foo.com";
-    for(int i=0; i < providers.size(); ++i){
-        QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setText(1, providers.at(i));
-        item->setCheckState(0, Qt::Unchecked);
-        treeWidget->addTopLevelItem(item);
-    }
+    load_providers();
 
 }
 
@@ -96,6 +90,23 @@ void SettingsWidget::on_tree_selection_changed()
 
 void SettingsWidget::on_tree_double_clicked(QTreeWidgetItem *item, int column)
 {
-    ProviderDialog *dialog = new ProviderDialog();
-    dialog->exec();
+    //ProviderDialog *dialog = new ProviderDialog();
+    //dialog->exec();
+}
+
+
+
+
+void SettingsWidget::load_providers()
+{
+    QSqlQuery query("Select active, provider, username, password from providers order by provider");
+    while(query.next()){
+        QTreeWidgetItem *item = new QTreeWidgetItem();
+        item->setCheckState(0, query.value(0).toBool() ? Qt::Checked : Qt::Unchecked);
+        item->setText(1, query.value(1).toString());
+        //item->setText(2, query.value(1).toString());
+        //item->setText(3, query.value(2).toString());
+        treeWidget->addTopLevelItem(item);
+    }
+
 }

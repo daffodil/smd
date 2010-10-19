@@ -5,11 +5,11 @@ ServiceClient::ServiceClient(QObject *parent) :
 {
 }
 
-QString ServiceClient::user(){
-    return _user;
+QString ServiceClient::username(){
+    return _username;
 }
-void ServiceClient::setUser(QString user){
-    _user = user;
+void ServiceClient::setUsername(QString user){
+    _username = user;
 }
 
 QString ServiceClient::password(){

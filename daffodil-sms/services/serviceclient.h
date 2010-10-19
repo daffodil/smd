@@ -10,8 +10,8 @@ Q_OBJECT
 public:
     explicit ServiceClient(QObject *parent = 0);
 
-    QString user();
-    void setUser(QString user);
+    QString username();
+    void setUsername(QString user);
 
     QString password();
     void setPassword(QString password);
@@ -19,7 +19,7 @@ public:
     virtual QString credits();
 
 protected:
-    QString _user;
+    QString _username;
     QString _password;
 
 

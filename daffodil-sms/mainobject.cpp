@@ -2,6 +2,7 @@
 #include "mainobject.h"
 #include "mainwindows/mainwindow.h"
 //#include "settings/settingswidget.h"
+#include "settings/providerdialog.h"
 
 #include <QtCore/QtDebug>
 #include <QtCore/QFile>
@@ -93,8 +94,11 @@ MainObject::MainObject(QObject *parent) :
     //** Setup
     trayIcon->show();
 
-    MainWindow *mainWindow = new MainWindow(this);
-    mainWindow->show();
+    ProviderDialog d(this);// = new ProviderDialog(this);
+    d.loadProvider("24x.com");
+    d.exec();
+    //MainWindow *mainWindow = new MainWindow(this);
+    //mainWindow->show();
 
 } /* constructor */
 
@@ -144,7 +148,7 @@ bool MainObject::db_sanity_check()
 
         queries.append("CREATE TABLE IF NOT EXISTS addresses( name varchar(30), salutation varchar(30), company varchar(30), mobile varchar(30) );");
 
-        queries.append("CREATE TABLE IF NOT EXISTS providers( name varchar(30), signup varchar(100), prices varchar(100), homepage varchar(100), login varchar(100), active integer );");
+        queries.append("CREATE TABLE IF NOT EXISTS providers( provider varchar(30), signup varchar(100), prices varchar(100), homepage varchar(100), login varchar(100), active integer, username varchar(50), password varchar(50) );");
         for(int i = 0; i < queries.size(); ++i){
             qDebug() << queries.at(i);
             QSqlQuery q;
@@ -173,7 +177,7 @@ bool MainObject::db_sanity_check()
 bool MainObject::db_create_provider(QString name, QString home, QString signup, QString login, QString prices)
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO providers(name, homepage, signup, login, prices)values(?,?,?,?,?)");
+    query.prepare("INSERT INTO providers(provider, homepage, signup, login, prices)values(?,?,?,?,?)");
     query.addBindValue(name);
     query.addBindValue(home);
     query.addBindValue(signup);

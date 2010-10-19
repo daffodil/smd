@@ -19,6 +19,7 @@ signals:
 public slots:
     void on_tree_selection_changed();
     void on_tree_double_clicked(QTreeWidgetItem *, int);
+    void load_providers();
 };
 
 #endif // SETTINGSWIDGET_H
