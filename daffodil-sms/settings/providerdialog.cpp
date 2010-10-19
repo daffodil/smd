@@ -148,10 +148,10 @@ void ProviderDialog::loadProvider(QString provider)
 void ProviderDialog::db_load()
 {
     QSqlQuery query;
-    query.prepare("select active, provider, homepage, login, prices, signup from providers where provider=?;");
+    query.prepare("select active, provider, homepage, login, prices, signup, username, password from providers where provider=?;");
     query.addBindValue( _provider );
     qDebug() << "provider=" << _provider;
-    return;
+    //return;
     if(!query.exec()){
         qDebug() << "OOps=" << query.lastError();
         return;
