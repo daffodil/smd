@@ -19,6 +19,9 @@ public:
     QTabWidget *tabWidget;
 
     AddressesWidget *addressesWidget;
+
+public slots:
+    void on_settings();
 };
 
 #endif // MAINWINDOW_H

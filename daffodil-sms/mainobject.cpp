@@ -4,6 +4,7 @@
 //#include "settings/settingswidget.h"
 
 #include <QtCore/QtDebug>
+#include <QtCore/QFile>
 
 #include <QCoreApplication>
 #include <QtGui/QDesktopServices>
@@ -17,6 +18,7 @@
 #include <QtSql/QSqlError>
 
 
+//http://24x.com/xfreeaccountv2.asp
 
 MainObject::MainObject(QObject *parent) :
     QObject(parent)
@@ -37,7 +39,9 @@ MainObject::MainObject(QObject *parent) :
     //db.setPassword("mash");
     //db.setDatabaseName("ffs-desktop");
     qDebug() << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-    db.setDatabaseName(QDesktopServices::storageLocation(QDesktopServices::DataLocation).append("daffodil-sms.sqlite"));
+    QString dbFile = QDesktopServices::storageLocation(QDesktopServices::DataLocation).append("daffodil-sms.sqlite");
+    QFile::remove(dbFile);
+    db.setDatabaseName(dbFile);
     if( !db.open() ){
         qDebug() << db.lastError();
         return;
@@ -104,31 +108,6 @@ void MainObject::on_settings(){
 
 
 
-//****************************************************************************
-//** Database Sanity Check
-bool MainObject::db_sanity_check(){
-    QSqlQuery query;
-    query.prepare("select version from db_version;");
-    if(!query.exec()){
-        qDebug() << "Sanity=" << query.lastError();
-        QStringList queries;
-        queries.append("CREATE TABLE IF NOT EXISTS db_version( `version` varchar(20) );");
-        queries.append("INSERT INTO db_version ( `version` )VALUES( 0.1 );");
-        queries.append("CREATE TABLE IF NOT EXISTS addresses( name varchar(30), salutation varchar(30), company varchar(30), mobile varchar(30) );");
-        for(int i = 0; i < queries.size(); ++i){
-            qDebug() << queries.at(i);
-            QSqlQuery q;
-            //query.prepare(queries.at(i));
-            if(!q.exec(queries.at(i))){
-                qDebug() << "OOps=" << q.lastError();
-                return false;
-            }
-        }
-        return true;
-    }
-    return true;
-}
-
 
 
 //****************************************************************************
@@ -149,3 +128,60 @@ void MainObject::on_tray_icon(QSystemTrayIcon::ActivationReason reason){
     }
 }
 
+
+
+//****************************************************************************
+//** Database Sanity Check
+bool MainObject::db_sanity_check()
+{
+    QSqlQuery query;
+    query.prepare("select version from db_version;");
+    if(!query.exec()){
+        qDebug() << "Sanity=" << query.lastError();
+        QStringList queries;
+        queries.append("CREATE TABLE IF NOT EXISTS db_version( `version` varchar(20) );");
+        queries.append("INSERT INTO db_version ( `version` )VALUES( 0.1 );");
+
+        queries.append("CREATE TABLE IF NOT EXISTS addresses( name varchar(30), salutation varchar(30), company varchar(30), mobile varchar(30) );");
+
+        queries.append("CREATE TABLE IF NOT EXISTS providers( name varchar(30), signup varchar(100), prices varchar(100), homepage varchar(100), login varchar(100), active integer );");
+        for(int i = 0; i < queries.size(); ++i){
+            qDebug() << queries.at(i);
+            QSqlQuery q;
+            //query.prepare(queries.at(i));
+            if(!q.exec(queries.at(i))){
+                qDebug() << "OOps=" << q.lastError();
+                return false;
+            }
+        }
+        //                    name           home                        signup                                     login                                      prices
+        db_create_provider("24x.com", "http://24x.com/", "http://24x.com/version35/(S(qxvite55d3zsd5iu1pwngem0))/login.aspx?referrer=", "http://24x.com/version35/(S(qxvite55d3zsd5iu1pwngem0))/login.aspx?referrer=", "http://24x.com/xPrices.asp");
+
+        db_create_provider("BulkSms.co.uk", "https://www.bulksms.co.uk", "https://www.bulksms.co.uk/register/", "https://www.bulksms.co.uk/login.mc", "https://www.bulksms.co.uk/w/pricing.htm");
+
+        db_create_provider("TextMarketer.co.uk", "http://www.textmarketer.co.uk/", "http://www.textmarketer.co.uk/signUpGoogle/", "http://www.textmarketer.co.uk/campaign/", "http://www.textmarketer.co.uk/bulk-sms-prices.htm");
+
+
+        return true;
+    }
+    return true;
+}
+
+
+//****************************************************************************
+//** Database Sanity Check
+bool MainObject::db_create_provider(QString name, QString home, QString signup, QString login, QString prices)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO providers(name, homepage, signup, login, prices)values(?,?,?,?,?)");
+    query.addBindValue(name);
+    query.addBindValue(home);
+    query.addBindValue(signup);
+    query.addBindValue(login);
+    query.addBindValue(prices);
+    if(!query.exec()){
+        qDebug() << "OOps=" << query.lastError();
+        return false;
+    }
+    return true;
+}

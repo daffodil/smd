@@ -42,6 +42,7 @@ public:
     QAction *actionQuit;
 
     bool db_sanity_check();
+    bool db_create_provider(QString name, QString home, QString signup, QString login, QString prices);
 
 signals:
 

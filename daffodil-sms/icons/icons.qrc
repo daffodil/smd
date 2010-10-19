@@ -18,5 +18,8 @@
         <file alias="contact_delete">user_delete.png</file>
         <file alias="contact_edit">user_edit.png</file>
         <file>user_gray.png</file>
+        <file alias="settings">cog.png</file>
+        <file alias="providers">ipod_cast.png</file>
+        <file alias="provider">ipod_sound.png</file>
     </qresource>
 </RCC>

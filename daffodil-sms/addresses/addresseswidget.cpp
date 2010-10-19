@@ -74,7 +74,7 @@ AddressesWidget::AddressesWidget(MainObject *mOb, QWidget *parent) :
     treeWidget->setSortingEnabled(true);
     treeWidget->sortByColumn(C_NAME, Qt::AscendingOrder);
     treeWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-   // treeWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    treeWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     treeWidget->setEditTriggers(QAbstractItemView::AllEditTriggers);
 
     //** Deaders and columns
