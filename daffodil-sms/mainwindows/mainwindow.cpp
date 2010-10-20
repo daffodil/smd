@@ -66,6 +66,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_settings()
 {
-    SettingsWidget *widget = new SettingsWidget();
+    SettingsWidget *widget = new SettingsWidget(mainObject);
     widget->show();
 }

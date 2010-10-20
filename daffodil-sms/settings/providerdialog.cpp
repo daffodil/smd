@@ -6,6 +6,8 @@
 #include <QtGui/QLabel>
 #include <QtGui/QIcon>
 #include <QtGui/QVBoxLayout>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QGridLayout>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDesktopServices>
 
@@ -52,6 +54,7 @@ ProviderDialog::ProviderDialog(MainObject *mOb, QDialog *parent) :
     grpBrowse->setStyleSheet(styleGrp);
     mainLayout->addWidget(grpBrowse);
     QHBoxLayout *grpBrowseLayout = new QHBoxLayout();
+    grpBrowseLayout->setContentsMargins(10,10,10,10);
     grpBrowse->setLayout(grpBrowseLayout);
 
     //** Browser Buttons
@@ -91,26 +94,31 @@ ProviderDialog::ProviderDialog(MainObject *mOb, QDialog *parent) :
     grpCredentials->setStyleSheet(styleGrp);
     mainLayout->addWidget(grpCredentials);
 
-    QVBoxLayout *credLayout = new QVBoxLayout();
+    QGridLayout *credLayout = new QGridLayout();
+    credLayout->setContentsMargins(10,20,10,10);
     grpCredentials->setLayout(credLayout);
+    int row =0;
 
     QLabel *lblUsername = new QLabel("Username");
-    credLayout->addWidget( lblUsername );
+    credLayout->addWidget( lblUsername, row, 0 );
+
     txtUsername = new QLineEdit();
-    credLayout->addWidget(txtUsername);
-    credLayout->addSpacing(10);
+    credLayout->addWidget(txtUsername, ++row, 0, 1, 1);
+
 
     QLabel *lblPassword = new QLabel("Password");
-    credLayout->addWidget( lblPassword );
+    credLayout->addWidget( lblPassword, ++row, 0, 1, 1 );
     txtPass = new QLineEdit();
-    credLayout->addWidget(txtPass);
-    credLayout->addSpacing(10);
+    credLayout->addWidget(txtPass, ++row, 0, 1, 1);
+    //credLayout->addSpacing(10);
 
     QLabel *lblEmail = new QLabel("Email");
-    credLayout->addWidget( lblEmail );
+    credLayout->addWidget( lblEmail, ++row, 0 );
     txtEmail = new QLineEdit();
-    credLayout->addWidget(txtEmail);
+    credLayout->addWidget(txtEmail, ++row, 0, 1, 2);
 
+    credLayout->setColumnStretch(0,1);
+    credLayout->setColumnStretch(1,1);
 
     mainLayout->addSpacing(20);
 
@@ -159,6 +167,7 @@ void ProviderDialog::db_load()
         query.next();
         qDebug() << "=" << query.lastQuery();
         headerLabel->setText(query.value(1).toString());
+        grpCredentials->setChecked(query.value(0).toBool() ? Qt::Checked : Qt::Unchecked);
         buttHomePage->setToolTip(query.value(2).toString());
         buttLogin->setToolTip(query.value(3).toString());
         buttSignUp->setToolTip(query.value(5).toString());
@@ -190,6 +199,25 @@ void ProviderDialog::on_save()
         statusBar->showError("Need an username", 4000);
         txtUsername->setFocus();
         return;
+    }
+    txtPass->setText(txtPass->text().trimmed());
+    if(txtPass->text().length() == 0){
+        statusBar->showError("Need a password", 4000);
+        txtPass->setFocus();
+        return;
+    }
+    QSqlQuery query;
+    query.prepare("update providers set active=?, username=?, password=?, email=? where provider=?");
+    query.addBindValue( grpCredentials->isChecked() ? 1 : NULL);
+    query.addBindValue(txtUsername->text());
+    query.addBindValue(txtPass->text());
+    query.addBindValue(txtEmail->text());
+    query.addBindValue(_provider);
+    if(!query.exec()){
+         qDebug() << query.lastError();
+        return;
+    }else{
+        qDebug() << query.lastQuery();
     }
     accept();
 }

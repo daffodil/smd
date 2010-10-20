@@ -4,13 +4,15 @@
 #include <QtGui/QWidget>
 #include <QtGui/QAction>
 #include <QtGui/QTreeWidget>
+#include "mainobject.h"
 
 class SettingsWidget : public QWidget
 {
 Q_OBJECT
 public:
-    explicit SettingsWidget(QWidget *parent = 0);
+    explicit SettingsWidget(MainObject *mOb, QWidget *parent = 0);
 
+    MainObject *mainObject;
     QAction *actionEdit;
     QTreeWidget *treeWidget;
 

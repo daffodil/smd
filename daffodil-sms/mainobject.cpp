@@ -94,11 +94,11 @@ MainObject::MainObject(QObject *parent) :
     //** Setup
     trayIcon->show();
 
-    ProviderDialog d(this);// = new ProviderDialog(this);
-    d.loadProvider("24x.com");
-    d.exec();
-    //MainWindow *mainWindow = new MainWindow(this);
-    //mainWindow->show();
+    //ProviderDialog d(this);// = new ProviderDialog(this);
+    //d.loadProvider("24x.com");
+    //d.exec();
+    MainWindow *mainWindow = new MainWindow(this);
+    mainWindow->show();
 
 } /* constructor */
 
@@ -148,7 +148,7 @@ bool MainObject::db_sanity_check()
 
         queries.append("CREATE TABLE IF NOT EXISTS addresses( name varchar(30), salutation varchar(30), company varchar(30), mobile varchar(30) );");
 
-        queries.append("CREATE TABLE IF NOT EXISTS providers( provider varchar(30), signup varchar(100), prices varchar(100), homepage varchar(100), login varchar(100), active integer, username varchar(50), password varchar(50) );");
+        queries.append("CREATE TABLE IF NOT EXISTS providers( provider varchar(30), signup varchar(100), prices varchar(100), homepage varchar(100), login varchar(100), active integer, username varchar(50), password varchar(50), email varchar(100) );");
         for(int i = 0; i < queries.size(); ++i){
             qDebug() << queries.at(i);
             QSqlQuery q;

@@ -12,10 +12,10 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
 
-SettingsWidget::SettingsWidget(QWidget *parent) :
+SettingsWidget::SettingsWidget(MainObject *mOb, QWidget *parent) :
     QWidget(parent)
 {
-
+    this->mainObject = mOb;
     setWindowIcon(QIcon(":/icons/settings"));
     setWindowTitle("Settings");
     setFixedWidth(500);
@@ -90,8 +90,9 @@ void SettingsWidget::on_tree_selection_changed()
 
 void SettingsWidget::on_tree_double_clicked(QTreeWidgetItem *item, int column)
 {
-    //ProviderDialog *dialog = new ProviderDialog();
-    //dialog->exec();
+    ProviderDialog dialog(this->mainObject); // = new ProviderDialog();
+    dialog.loadProvider(item->text(1));
+    dialog.exec();
 }
 
 
