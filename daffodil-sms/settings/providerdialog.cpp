@@ -93,6 +93,7 @@ ProviderDialog::ProviderDialog(MainObject *mOb, QDialog *parent) :
     grpCredentials->setCheckable(true);
     grpCredentials->setStyleSheet(styleGrp);
     mainLayout->addWidget(grpCredentials);
+    connect(grpCredentials, SIGNAL(clicked(bool)), this, SLOT(on_credentials_checkbox(bool)));
 
     QGridLayout *credLayout = new QGridLayout();
     credLayout->setContentsMargins(10,20,10,10);
@@ -185,6 +186,13 @@ void ProviderDialog::on_browse_button(QAbstractButton *button)
     QDesktopServices::openUrl(QUrl(button->toolTip()));
 }
 
+void ProviderDialog::on_credentials_checkbox(bool state)
+{
+    if(state){
+        txtUsername->setFocus();
+    }
+}
+
 
 void ProviderDialog::on_cancel()
 {
@@ -221,3 +229,4 @@ void ProviderDialog::on_save()
     }
     accept();
 }
+

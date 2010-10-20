@@ -48,6 +48,7 @@ signals:
 public slots:
     void db_load();
     void on_browse_button(QAbstractButton*);
+    void on_credentials_checkbox(bool state);
 
     void on_cancel();
     void on_save();
