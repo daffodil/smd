@@ -15,7 +15,9 @@ SOURCES += main.cpp \
     services/textmarketer.cpp \
     services/x24com.cpp \
     settings/settingswidget.cpp \
-    settings/providerdialog.cpp
+    settings/providerdialog.cpp \
+    setup/dbsetupwizard.cpp \
+    setup/dbwizzselectpage.cpp
 HEADERS += mainwindows/mainwindow.h \
     mainobject.h \
     addresses/addresseswidget.h \
@@ -24,5 +26,7 @@ HEADERS += mainwindows/mainwindow.h \
     services/textmarketer.h \
     services/x24com.h \
     settings/settingswidget.h \
-    settings/providerdialog.h
+    settings/providerdialog.h \
+    setup/dbsetupwizard.h \
+    setup/dbwizzselectpage.h
 RESOURCES += icons/icons.qrc

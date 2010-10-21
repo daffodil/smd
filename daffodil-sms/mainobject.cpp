@@ -3,6 +3,7 @@
 #include "mainwindows/mainwindow.h"
 //#include "settings/settingswidget.h"
 #include "settings/providerdialog.h"
+#include "setup/dbsetupwizard.h"
 
 #include <QtCore/QtDebug>
 #include <QtCore/QFile>
@@ -97,8 +98,10 @@ MainObject::MainObject(QObject *parent) :
     //ProviderDialog d(this);// = new ProviderDialog(this);
     //d.loadProvider("24x.com");
     //d.exec();
-    MainWindow *mainWindow = new MainWindow(this);
-    mainWindow->show();
+//    MainWindow *mainWindow = new MainWindow(this);
+//    mainWindow->show();
+    DbSetupWizard *dbWizz = new DbSetupWizard();
+    dbWizz->exec();
 
 } /* constructor */
 
