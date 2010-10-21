@@ -20,14 +20,19 @@ DbWizzSelectPage::DbWizzSelectPage(QWidget *parent) :
 
     QRadioButton *radioSqlite = new QRadioButton();
     grpRadio->addButton(radioSqlite);
+    mainVBox->addWidget(radioSqlite);
     radioSqlite->setText("Sqlite database - local to this machine only");
+    radioSqlite->setChecked(true);
 
     QRadioButton *radioMySql = new QRadioButton();
     grpRadio->addButton(radioMySql);
+    mainVBox->addWidget(radioMySql);
     radioMySql->setText("MySql database - network database");
 
     QRadioButton *radioMsSql = new QRadioButton();
     grpRadio->addButton(radioMsSql);
-    radioMsSql->setText("Microsoft Sql database - network database");
+    mainVBox->addWidget(radioMsSql);
+    radioMsSql->setText("Microsoft SQL database - network database");
+    radioMsSql->setDisabled(true);
 
 }

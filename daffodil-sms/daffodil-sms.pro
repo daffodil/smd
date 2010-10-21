@@ -17,7 +17,9 @@ SOURCES += main.cpp \
     settings/settingswidget.cpp \
     settings/providerdialog.cpp \
     setup/dbsetupwizard.cpp \
-    setup/dbwizzselectpage.cpp
+    setup/dbwizzselectpage.cpp \
+    setup/dbwizzsqlitepage.cpp \
+    setup/dbwizzmysqlpage.cpp
 HEADERS += mainwindows/mainwindow.h \
     mainobject.h \
     addresses/addresseswidget.h \
@@ -28,5 +30,7 @@ HEADERS += mainwindows/mainwindow.h \
     settings/settingswidget.h \
     settings/providerdialog.h \
     setup/dbsetupwizard.h \
-    setup/dbwizzselectpage.h
+    setup/dbwizzselectpage.h \
+    setup/dbwizzsqlitepage.h \
+    setup/dbwizzmysqlpage.h
 RESOURCES += icons/icons.qrc

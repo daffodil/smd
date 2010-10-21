@@ -1,10 +1,18 @@
 #include "dbsetupwizard.h"
 
-#include "dbwizzselectpage.h"
+
+#include <QtGui/QIcon>
 
 DbSetupWizard::DbSetupWizard(QWidget *parent) :
     QWizard(parent)
 {
 
-    addPage(new DbWizzSelectPage());
+    setWindowIcon(QIcon(":/icons/settings"));
+    setWindowTitle("Database Storge Settings");
+
+    addPage( new DbWizzSelectPage() );
+
+    addPage( new DbWizzMySqlPage() );
+
+
 }
