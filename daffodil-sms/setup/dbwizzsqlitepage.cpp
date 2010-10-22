@@ -1,10 +1,10 @@
-#include "dbwizzselectpage.h"
+#include "dbwizzsqlitepage.h"
 
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QRadioButton>
 
-DbWizzSelectPage::DbWizzSelectPage(QWidget *parent) :
+DbWizzSqlitePage::DbWizzSqlitePage(QWidget *parent) :
     QWizardPage(parent)
 {
 
