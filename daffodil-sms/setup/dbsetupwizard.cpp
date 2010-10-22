@@ -1,5 +1,5 @@
 #include "dbsetupwizard.h"
-
+#include "dbwizzmysqlpage.h"
 
 #include <QtGui/QIcon>
 
