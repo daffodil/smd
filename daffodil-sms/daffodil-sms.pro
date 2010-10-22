@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     setup/dbwizzselectpage.cpp \
     setup/dbwizzmysqlpage.cpp \
     setup/dbwizzsqlitepage.cpp \
-    import/importwizard.cpp
+    import/importwizard.cpp \
+    import/importwizzselectmodepage.cpp
 HEADERS += mainwindows/mainwindow.h \
     mainobject.h \
     addresses/addresseswidget.h \
@@ -34,5 +35,6 @@ HEADERS += mainwindows/mainwindow.h \
     setup/dbwizzselectpage.h \
     setup/dbwizzmysqlpage.h \
     setup/dbwizzsqlitepage.h \
-    import/importwizard.h
+    import/importwizard.h \
+    import/importwizzselectmodepage.h
 RESOURCES += icons/icons.qrc

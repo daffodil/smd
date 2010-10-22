@@ -4,6 +4,7 @@
 //#include "settings/settingswidget.h"
 #include "settings/providerdialog.h"
 #include "setup/dbsetupwizard.h"
+#include "import/importwizard.h"
 
 #include <QtCore/QtDebug>
 #include <QtCore/QFile>
@@ -100,8 +101,14 @@ MainObject::MainObject(QObject *parent) :
     //d.exec();
 //    MainWindow *mainWindow = new MainWindow(this);
 //    mainWindow->show();
-    DbSetupWizard *dbWizz = new DbSetupWizard();
-    dbWizz->exec();
+
+//    DbSetupWizard *dbWizz = new DbSetupWizard();
+//    dbWizz->exec();
+
+    ImportWizard *importWizard = new ImportWizard();
+    importWizard->exec();
+
+
 
 } /* constructor */
 
