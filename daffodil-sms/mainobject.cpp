@@ -1,6 +1,7 @@
 
 #include "mainobject.h"
 #include "mainwindows/mainwindow.h"
+
 //#include "settings/settingswidget.h"
 #include "settings/providerdialog.h"
 #include "setup/dbsetupwizard.h"
